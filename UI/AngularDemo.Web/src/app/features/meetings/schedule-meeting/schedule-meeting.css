@@ -1,0 +1,24 @@
+.page-container {
+  padding: 20px;
+}
+
+.form-layout {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+.half-width {
+  grid-column: span 1;
+}
+
+.buttons-group {
+  grid-column: span 2;
+  display: flex;
+  gap: 10px;
+}

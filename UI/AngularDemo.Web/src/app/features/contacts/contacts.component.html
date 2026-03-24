@@ -1,0 +1,63 @@
+<div class="page-container">
+    <!-- Header -->
+    <div class="header">
+      <h2>My Contacts</h2>
+      <button mat-raised-button class="primary" (click)="openAddContact()">+ Add Contact</button>
+    </div>
+
+    <!-- Search -->
+    <mat-form-field appearance="outline" class="search-box">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search contacts">
+    </mat-form-field>
+
+    <!-- Table -->
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+        <!-- Name -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td mat-cell *matCellDef="let c"> {{c.name}} </td>
+        </ng-container>
+
+        <!-- Email -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+          <td mat-cell *matCellDef="let c"> {{c.email}} </td>
+        </ng-container>
+
+        <!-- Phone -->
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
+          <td mat-cell *matCellDef="let c"> {{c.phone}} </td>
+        </ng-container>
+
+        <!-- Favorite -->
+        <ng-container matColumnDef="favorite">
+          <th mat-header-cell *matHeaderCellDef> Favorite </th>
+          <td mat-cell *matCellDef="let c">
+            <mat-icon color="warn" *ngIf="c.favorite">star</mat-icon>
+          </td>
+        </ng-container>
+
+        <!-- Actions -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let c">
+            <button mat-icon-button color="primary" (click)="onEdit(c.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteContact(c.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <mat-paginator [pageSize]="10"></mat-paginator>
+
+</div>

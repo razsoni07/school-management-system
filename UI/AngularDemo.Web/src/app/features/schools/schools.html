@@ -1,0 +1,100 @@
+<div class="page-container">
+
+  <!-- Header -->
+  <div class="header">
+    <h2>Schools</h2>
+    <button mat-raised-button color="primary" (click)="addSchool()">
+      + Add School
+    </button>
+  </div>
+
+  <!-- Search -->
+  <mat-form-field appearance="outline" class="search-box">
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Search school">
+  </mat-form-field>
+
+  <!-- Table -->
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2 full-width-table">
+
+    <!-- School Name -->
+    <ng-container matColumnDef="schoolName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> School Name </th>
+      <td mat-cell *matCellDef="let u"> {{u.schoolName}} </td>
+    </ng-container>
+
+    <!-- Code -->
+    <ng-container matColumnDef="code">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
+      <td mat-cell *matCellDef="let u"> {{u.code}} </td>
+    </ng-container>
+
+    <!-- Address -->
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+      <td mat-cell *matCellDef="let u"> {{u.address}} </td>
+    </ng-container>
+
+    <!-- City -->
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
+      <td mat-cell *matCellDef="let u">
+          <span class="location-chip city-chip">
+          <mat-icon>location_city</mat-icon>
+          {{u.city}}
+          </span>
+      </td>
+    </ng-container>
+
+    <!-- State -->
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> State </th>
+      <td mat-cell *matCellDef="let u">
+        <span class="location-chip state-chip">
+          <mat-icon>map</mat-icon>
+          {{u.state}}
+        </span>
+      </td>
+    </ng-container>
+
+    <!-- Created Date -->
+    <ng-container matColumnDef="createdDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date</th>
+      <td mat-cell *matCellDef="let u">
+        {{ u.createdAt | date:'fullDate' }}
+      </td>
+    </ng-container>
+
+    <!-- IsActive -->
+    <ng-container matColumnDef="isActive">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+
+      <td mat-cell *matCellDef="let s">
+        <mat-slide-toggle [checked]="s.isActive" [color]="s.isActive ? 'primary' : 'warn'" (change)="toggleStatus(s)"> </mat-slide-toggle>
+      </td>
+    </ng-container>
+
+    <!-- Actions -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let u">
+        <button mat-icon-button class="action-btn edit-btn" (click)="editSchool(u.id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        
+        <button mat-icon-button class="action-btn delete-btn" (click)="deleteSchool(u.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Rows -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+  <!-- Pagination -->
+  <mat-paginator [pageSize]="9"></mat-paginator>
+
+</div>

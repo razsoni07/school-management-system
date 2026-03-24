@@ -1,0 +1,78 @@
+<div class="page-container">
+
+  <h2>{{ isEdit ? 'Edit User' : 'Add User' }}</h2>
+
+  <form [formGroup]="form" class="form-layout">
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Full Name</mat-label>
+        <input matInput formControlName="fullName">
+        <mat-error *ngIf="form.get('fullName')?.hasError('required') && form.get('fullName')?.touched">
+          Full Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="userName">
+        <mat-error *ngIf="form.get('userName')?.hasError('required') && form.get('userName')?.touched">
+          Username is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+        <mat-error *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched">
+          Enter a valid email
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone">
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password">
+        <mat-hint *ngIf="isEdit">Leave blank to keep existing password</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Role</mat-label>
+        <mat-select formControlName="role">
+          <mat-option *ngFor="let r of roles" [value]="r">{{r}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('role')?.hasError('required') && form.get('role')?.touched">
+          Role is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row" *ngIf="showSchoolDropdown">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Select School</mat-label>
+        <mat-select formControlName="schoolId">
+          <mat-option [value]="null">-- None --</mat-option>
+          <mat-option *ngFor="let s of schools" [value]="s.id">{{ s.schoolName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="buttons-group">
+      <button mat-raised-button color="primary" (click)="save()">Save</button>
+      <button mat-button color="warn" type="button" (click)="cancel()">Cancel</button>
+    </div>
+
+  </form>
+
+</div>

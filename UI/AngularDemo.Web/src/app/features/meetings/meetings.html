@@ -1,0 +1,124 @@
+<div class="page-container">
+
+  <!-- Header -->
+  <div class="header">
+    <h2>Meetings</h2>
+    <button mat-raised-button color="primary" (click)="addMeeting()">
+      + Add Meeting
+    </button>
+  </div>
+
+  <!-- Search -->
+  <mat-form-field appearance="outline" class="search-box">
+    <mat-label>Search</mat-label>
+    <input matInput placeholder="Search meeting">
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+    <!-- Title -->
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+      <td mat-cell *matCellDef="let element"> {{ element.title }} </td>
+    </ng-container>
+
+    <!-- Description -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let element"> {{ element.description }} </td>
+    </ng-container>
+
+    <!-- School -->
+    <ng-container matColumnDef="schoolName">
+      <th mat-header-cell *matHeaderCellDef> School </th>
+      <td mat-cell *matCellDef="let element"> {{ element.schoolName }} </td>
+    </ng-container>
+
+    <!-- Room -->
+    <ng-container matColumnDef="roomName">
+      <th mat-header-cell *matHeaderCellDef> Room </th>
+      <td mat-cell *matCellDef="let element"> {{ element.roomName }} </td>
+    </ng-container>
+
+    <!-- Meeting Type -->
+    <ng-container matColumnDef="meetingType">
+      <th mat-header-cell *matHeaderCellDef> Type </th>
+      <td mat-cell *matCellDef="let element"> {{ getMeetingTypeLabel(element.meetingType) }} </td>
+    </ng-container>
+
+    <!-- Meeting Date -->
+    <ng-container matColumnDef="meetingDate">
+      <th mat-header-cell *matHeaderCellDef> Date </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.meetingDate | date:'shortDate' }}
+      </td>
+    </ng-container>
+
+    <!-- Start Time -->
+    <ng-container matColumnDef="startTime">
+      <th mat-header-cell *matHeaderCellDef> Start </th>
+      <td mat-cell *matCellDef="let element"> {{ element.startTime }} </td>
+    </ng-container>
+
+    <!-- End Time -->
+    <ng-container matColumnDef="endTime">
+      <th mat-header-cell *matHeaderCellDef> End </th>
+      <td mat-cell *matCellDef="let element"> {{ element.endTime }} </td>
+    </ng-container>
+
+    <!-- Participants -->
+    <ng-container matColumnDef="participants">
+      <th mat-header-cell *matHeaderCellDef> Participants </th>
+      <td mat-cell *matCellDef="let element"> {{ getParticipantsLabel(element.participants) }} </td>
+    </ng-container>
+
+    <!-- Actions -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let element">
+      
+        <!-- LIVE Meeting -->
+        <button mat-raised-button color="primary" class="join-btn" *ngIf="isLive(element)" (click)="join(element.id, element.roomName)">
+          <mat-icon>videocam</mat-icon>
+          Join Meeting
+        </button>
+      
+        <!-- Not Live -->
+        <span *ngIf="!isLive(element)" class="not-live">
+          <mat-icon color="warn">schedule</mat-icon>
+          Not Live
+        </span>
+      
+      </td>
+    </ng-container>
+
+    <!-- Header & Row Definitions (VERY IMPORTANT) -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- No Data Row -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell no-data-cell" [attr.colspan]="displayedColumns.length">
+        <div class="empty-state">
+          <div class="empty-icon">
+            <mat-icon>event_busy</mat-icon>
+          </div>
+        
+          <div class="empty-title">No Meetings Found</div>
+        
+          <div class="empty-subtitle">
+            You dont have any meetings scheduled yet.
+          </div>
+        
+          <button mat-raised-button color="primary" (click)="addMeeting()">
+            + Create Meeting
+          </button>
+        </div>
+      </td>
+    </tr>
+
+  </table>
+
+  <mat-paginator [pageSize]="9"></mat-paginator>
+
+</div>

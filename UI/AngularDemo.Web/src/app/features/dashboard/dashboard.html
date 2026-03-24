@@ -1,0 +1,133 @@
+<div class="dashboard-container">
+
+  <!-- ===== Welcome Banner ===== -->
+  <div class="welcome-banner">
+    <div class="welcome-left">
+      <div class="welcome-greeting">Good day,</div>
+      <div class="welcome-name">{{ auth.getUserInfo()?.username }} 👋</div>
+      <div class="welcome-meta">
+        <span class="welcome-role-badge">
+          <span class="material-icons">badge</span>
+          {{ role }}
+        </span>
+        <span class="welcome-date">
+          <span class="material-icons">calendar_today</span>
+          {{ today | date:'fullDate' }}
+        </span>
+      </div>
+    </div>
+    <div class="welcome-right">
+      <div class="welcome-illustration">🎓</div>
+    </div>
+  </div>
+
+  <!-- ===== ADMIN STAT CARDS ===== -->
+  <div class="stats-grid" *ngIf="role === 'Admin'">
+
+    <div class="stat-card card-blue">
+      <div class="stat-icon-wrap">
+        <span class="material-icons">manage_accounts</span>
+      </div>
+      <div class="stat-body">
+        <div class="stat-value">{{ stats.totalUsers }}</div>
+        <div class="stat-label">Total Users</div>
+      </div>
+      <div class="stat-trend">
+        <span class="material-icons">arrow_upward</span>
+      </div>
+    </div>
+
+    <div class="stat-card card-orange">
+      <div class="stat-icon-wrap">
+        <span class="material-icons">account_balance</span>
+      </div>
+      <div class="stat-body">
+        <div class="stat-value">{{ stats.totalPrincipals }}</div>
+        <div class="stat-label">Principals</div>
+      </div>
+      <div class="stat-trend">
+        <span class="material-icons">arrow_upward</span>
+      </div>
+    </div>
+
+    <div class="stat-card card-purple">
+      <div class="stat-icon-wrap">
+        <span class="material-icons">supervised_user_circle</span>
+      </div>
+      <div class="stat-body">
+        <div class="stat-value">{{ stats.totalTeachers }}</div>
+        <div class="stat-label">Teachers</div>
+      </div>
+      <div class="stat-trend">
+        <span class="material-icons">arrow_upward</span>
+      </div>
+    </div>
+
+    <div class="stat-card card-teal">
+      <div class="stat-icon-wrap">
+        <span class="material-icons">contacts</span>
+      </div>
+      <div class="stat-body">
+        <div class="stat-value">{{ stats.totalContacts }}</div>
+        <div class="stat-label">Contacts</div>
+      </div>
+      <div class="stat-trend">
+        <span class="material-icons">arrow_upward</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== PRINCIPAL STAT CARDS ===== -->
+  <div class="stats-grid" *ngIf="role === 'Principal'">
+
+    <div class="stat-card card-purple">
+      <div class="stat-icon-wrap">
+        <span class="material-icons">supervised_user_circle</span>
+      </div>
+      <div class="stat-body">
+        <div class="stat-value">{{ stats.totalTeachers }}</div>
+        <div class="stat-label">Total Teachers</div>
+      </div>
+      <div class="stat-trend">
+        <span class="material-icons">arrow_upward</span>
+      </div>
+    </div>
+
+    <div class="stat-card card-teal">
+      <div class="stat-icon-wrap">
+        <span class="material-icons">contacts</span>
+      </div>
+      <div class="stat-body">
+        <div class="stat-value">{{ stats.totalContacts }}</div>
+        <div class="stat-label">Total Contacts</div>
+      </div>
+      <div class="stat-trend">
+        <span class="material-icons">arrow_upward</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== CHART CARD ===== -->
+  <div class="chart-card">
+    <div class="chart-card-header">
+      <div class="chart-title-wrap">
+        <div class="chart-icon">📊</div>
+        <div>
+          <div class="chart-title">School Overview</div>
+          <div class="chart-subtitle">Distribution of educational resources</div>
+        </div>
+      </div>
+    </div>
+    <div class="chart-body">
+      <canvas
+        baseChart
+        [data]="pieChartData"
+        [options]="pieChartOptions"
+        chartType="pie">
+      </canvas>
+    </div>
+  </div>
+
+</div>

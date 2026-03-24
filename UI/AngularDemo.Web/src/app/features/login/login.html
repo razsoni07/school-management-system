@@ -1,0 +1,103 @@
+<div class="login-page">
+
+  <!-- Animated floating educational icons background -->
+  <div class="bg-icons">
+    <span class="icon i1">📚</span>
+    <span class="icon i2">🎓</span>
+    <span class="icon i3">✏️</span>
+    <span class="icon i4">🔬</span>
+    <span class="icon i5">📐</span>
+    <span class="icon i6">🌍</span>
+    <span class="icon i7">💡</span>
+    <span class="icon i8">🧪</span>
+    <span class="icon i9">📖</span>
+    <span class="icon i10">🏆</span>
+  </div>
+
+  <div class="login-card">
+
+    <!-- Left branding panel -->
+    <div class="card-left">
+      <div class="brand-logo">🎓</div>
+      <h1 class="brand-title">EduPortal</h1>
+      <p class="brand-tagline">Empowering learners.<br>Inspiring futures.</p>
+      <div class="brand-stats">
+        <div class="stat">
+          <span class="stat-number">50K+</span>
+          <span class="stat-label">Students</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">1200+</span>
+          <span class="stat-label">Courses</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">98%</span>
+          <span class="stat-label">Success</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right login form panel -->
+    <div class="card-right">
+      <div class="form-header">
+        <h2>Welcome Back</h2>
+        <p>Sign in to continue your learning journey</p>
+      </div>
+
+      <form (ngSubmit)="onLogin()" class="login-form">
+
+        <div class="input-group">
+          <label for="username">Username</label>
+          <div class="input-wrapper">
+            <span class="input-icon">👤</span>
+            <input
+              id="username"
+              type="text"
+              placeholder="Enter your username"
+              [(ngModel)]="username"
+              name="username"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+          <div class="input-wrapper">
+            <span class="input-icon">🔒</span>
+            <input
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              [(ngModel)]="password"
+              name="password"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-options">
+          <label class="remember-me">
+            <input type="checkbox" /> Remember me
+          </label>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="login-btn">
+          <span>Sign In</span>
+          <span class="btn-arrow">→</span>
+        </button>
+
+      </form>
+
+      <p class="error-msg" *ngIf="errorMessage">
+        ⚠️ {{ errorMessage }}
+      </p>
+
+      <div class="form-footer">
+        <p>Don't have an account? <a href="#">Register here</a></p>
+      </div>
+    </div>
+
+  </div>
+</div>

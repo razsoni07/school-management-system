@@ -1,0 +1,272 @@
+@use '@angular/material' as mat;
+
+/* =====================================
+   Angular Material Base
+===================================== */
+
+@include mat.core();
+
+/* Light Theme */
+$light-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$blue-palette,
+    tertiary: mat.$green-palette
+  )
+));
+
+/* Dark Theme */
+$dark-theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$blue-palette,
+    tertiary: mat.$green-palette
+  )
+));
+
+/* =====================================
+   Apply Themes using body class
+===================================== */
+
+body.light-theme {
+  @include mat.all-component-themes($light-theme);
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+body.dark-theme {
+  @include mat.all-component-themes($dark-theme);
+  background: #020617;
+  color: #e2e8f0;
+}
+
+/* =====================================
+   Angular Material Dark Fixes
+===================================== */
+
+body.dark-theme .mat-mdc-table,
+body.dark-theme .mat-mdc-paginator,
+body.dark-theme .mat-mdc-card,
+body.dark-theme .mat-mdc-dialog-container {
+  background: #020617;
+  color: #e2e8f0;
+}
+
+body.dark-theme .mat-mdc-form-field {
+  color: #e2e8f0;
+}
+
+/* =====================================
+   Layout Global Theme (Topbar / Sidebar / Content)
+===================================== */
+
+/* Content area */
+body.light-theme .content {
+  background: #f0edfb;
+}
+
+body.dark-theme .content {
+  background: #020617;
+}
+
+/* Topbar */
+body.light-theme .topbar {
+  background: #ffffff;
+  color: #0f172a;
+  border-bottom: 1px solid #e0f2fe;
+  box-shadow: 0 1px 8px rgba(2, 132, 199, 0.08);
+}
+
+body.dark-theme .topbar {
+  background: #051e2e;
+  color: #e2e8f0;
+  border-bottom: 1px solid #0c4a6e;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.3);
+}
+
+/* Topbar icons */
+body.dark-theme .topbar .material-icons,
+body.dark-theme .topbar button,
+body.dark-theme .icon-btn {
+  color: #e2e8f0;
+}
+
+/* Sidebar */
+body.light-theme .sidebar {
+  background: linear-gradient(180deg, #0c4a6e 0%, #0369a1 45%, #0284c7 100%);
+  color: #ffffff;
+}
+
+body.dark-theme .sidebar {
+  background: linear-gradient(180deg, #052e4a 0%, #0c4a6e 45%, #0369a1 100%);
+  color: #e2e8f0;
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+
+body.dark-theme .sidebar-nav a:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Content area */
+body.light-theme .content {
+  background: #f0f9ff;
+}
+
+body.dark-theme .content {
+  background: #020617;
+}
+
+/* Dropdown */
+body.light-theme .dropdown {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+}
+
+body.dark-theme .dropdown {
+  background: #020617;
+  border: 1px solid #1e293b;
+  color: #e2e8f0;
+}
+
+body.dark-theme .dropdown-item:hover {
+  background: #1e293b;
+}
+
+/* Force full height */
+html, body, app-root {
+  height: 100%;
+  margin: 0;
+}
+
+/* Tailwind (keep if you use it) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =====================================
+   Login Page Theme Fix
+===================================== */
+
+/* Login container (optional class: login-page) */
+body.dark-theme .login-page {
+  background: #020617;
+  color: #e2e8f0;
+}
+
+/* Login card / box */
+body.dark-theme .login-card {
+  background: #0f172a;
+  color: #e2e8f0;
+  border: 1px solid #1e293b;
+}
+
+/* Input fields */
+body.dark-theme .login-card input {
+  background: #020617;
+  color: #e2e8f0;
+  border: 1px solid #334155;
+}
+
+body.dark-theme .login-card input::placeholder {
+  color: #94a3b8;
+}
+
+/* Labels */
+body.dark-theme .login-card label {
+  color: #e2e8f0;
+}
+
+/* Login title */
+body.dark-theme .login-card h1,
+body.dark-theme .login-card h2,
+body.dark-theme .login-card h3 {
+  color: #e2e8f0;
+}
+
+/* Button (if normal button used) */
+body.dark-theme .login-card button {
+  color: #ffffff;
+}
+
+/* Material Login Fields Dark Fix */
+body.dark-theme .mat-mdc-form-field {
+  color: #e2e8f0;
+}
+
+body.dark-theme .mat-mdc-text-field-wrapper {
+  background: #020617;
+}
+
+/* Profile container */
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;   /* <-- space between Dark mode and Profile icon */
+  position: relative;
+}
+
+/* Icon button styling (optional improvement) */
+.icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hover effect */
+.icon-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+/* Dark mode hover */
+body.dark-theme .icon-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+body.dark-theme .dropdown {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+/* Success - Green */
+.snackbar-success {
+  background-color: #2e7d32 !important;
+  color: #fff !important;
+}
+
+/* Error - Red */
+.snackbar-error {
+  background-color: #d32f2f !important;
+  color: #fff !important;
+}
+
+/* Warning - Orange */
+.snackbar-warning {
+  background-color: #ed6c02 !important;
+  color: #fff !important;
+}
+
+/* Info - Blue */
+.snackbar-info {
+  background-color: #0288d1 !important;
+  color: #fff !important;
+}
+
+/* Better button color */
+.mat-mdc-snack-bar-action {
+  color: #ffffff !important;
+  font-weight: 600;
+}

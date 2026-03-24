@@ -1,0 +1,125 @@
+<div class="page-container">
+
+  <!-- Header -->
+  <div class="header">
+    <h2>Students</h2>
+    <button mat-raised-button color="primary" (click)="addStudent()">
+      + Add Student
+    </button>
+  </div>
+
+  <!-- Search -->
+  <mat-form-field appearance="outline" class="search-box">
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Search student">
+  </mat-form-field>
+
+  <!-- Table -->
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2 full-width-table">
+
+    <!-- Student Name -->
+    <ng-container matColumnDef="fullName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Student Name </th>
+      <td mat-cell *matCellDef="let s"> {{s.fullName}} </td>
+    </ng-container>
+
+    <!-- Class -->
+    <ng-container matColumnDef="class">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Class </th>
+      <td mat-cell *matCellDef="let s">
+        <span class="class-chip">{{s.class}}</span>
+      </td>
+    </ng-container>
+
+    <!-- Section -->
+    <ng-container matColumnDef="section">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Section </th>
+      <td mat-cell *matCellDef="let s"> {{s.section}} </td>
+    </ng-container>
+
+    <!-- Roll Number -->
+    <ng-container matColumnDef="rollNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Roll No. </th>
+      <td mat-cell *matCellDef="let s"> {{s.rollNumber}} </td>
+    </ng-container>
+
+    <!-- School Name — SuperAdmin only -->
+    <ng-container matColumnDef="schoolName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> School </th>
+      <td mat-cell *matCellDef="let s">
+        <span class="school-chip">
+          <mat-icon>school</mat-icon>
+          {{s.schoolName}}
+        </span>
+      </td>
+    </ng-container>
+
+    <!-- School Code — SuperAdmin only -->
+    <ng-container matColumnDef="schoolCode">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> School Code </th>
+      <td mat-cell *matCellDef="let s"> {{s.schoolCode}} </td>
+    </ng-container>
+
+    <!-- Gender -->
+    <ng-container matColumnDef="gender">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Gender </th>
+      <td mat-cell *matCellDef="let s">
+        <span class="gender-chip">{{s.gender}}</span>
+      </td>
+    </ng-container>
+
+    <!-- Admission Date -->
+    <ng-container matColumnDef="admissionDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Admission Date </th>
+      <td mat-cell *matCellDef="let s"> {{ s.admissionDate | date:'mediumDate' }} </td>
+    </ng-container>
+
+    <!-- Email -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+      <td mat-cell *matCellDef="let s"> {{s.email}} </td>
+    </ng-container>
+
+    <!-- Phone -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
+      <td mat-cell *matCellDef="let s"> {{s.phone}} </td>
+    </ng-container>
+
+    <!-- Address -->
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+      <td mat-cell *matCellDef="let s"> {{s.address}} </td>
+    </ng-container>
+
+    <!-- Status -->
+    <ng-container matColumnDef="isActive">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let s">
+        <mat-slide-toggle [checked]="s.isActive" [color]="s.isActive ? 'primary' : 'warn'" (change)="toggleStatus(s)"></mat-slide-toggle>
+      </td>
+    </ng-container>
+
+    <!-- Actions -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let s">
+        <button mat-icon-button class="action-btn edit-btn" (click)="editStudent(s.id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button class="action-btn delete-btn" (click)="deleteStudent(s.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Rows -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+  <!-- Pagination -->
+  <mat-paginator [pageSize]="9"></mat-paginator>
+
+</div>

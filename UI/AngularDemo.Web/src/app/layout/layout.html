@@ -1,0 +1,165 @@
+<div class="layout">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <div class="sidebar" [class.collapsed]="isSidebarCollapsed">
+
+    <!-- Logo -->
+    <div class="sidebar-logo">
+      <div class="logo-icon">🎓</div>
+      <span class="logo-text" *ngIf="!isSidebarCollapsed">EduPortal</span>
+    </div>
+
+    <!-- Nav section label -->
+    <div class="nav-label" *ngIf="!isSidebarCollapsed">MAIN MENU</div>
+
+    <nav class="sidebar-nav">
+
+      <!-- Dashboard -->
+      <a routerLink="/dashboard" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: false }" title="Dashboard">
+        <div class="nav-icon-wrap"><span class="material-icons">dashboard</span></div>
+        <span class="nav-label-text" *ngIf="!isSidebarCollapsed">Dashboard</span>
+      </a>
+
+      <!-- Users (SuperAdmin) -->
+      <a *ngIf="userRole === 'SuperAdmin'" routerLink="/users" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: false }" title="Users">
+        <div class="nav-icon-wrap"><span class="material-icons">manage_accounts</span></div>
+        <span class="nav-label-text" *ngIf="!isSidebarCollapsed">Users</span>
+      </a>
+
+      <!-- Schools (SuperAdmin) -->
+      <a *ngIf="userRole === 'SuperAdmin'" routerLink="/schools" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: false }" title="Schools">
+        <div class="nav-icon-wrap"><span class="material-icons">account_balance</span></div>
+        <span class="nav-label-text" *ngIf="!isSidebarCollapsed">Schools</span>
+      </a>
+
+      <!-- Contacts -->
+      <a routerLink="/contacts" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: false }" title="Contacts">
+        <div class="nav-icon-wrap"><span class="material-icons">contacts</span></div>
+        <span class="nav-label-text" *ngIf="!isSidebarCollapsed">Contacts</span>
+      </a>
+
+      <!-- Teachers -->
+      <a *ngIf="userRole === 'SuperAdmin' || userRole === 'SchoolAdmin' || userRole === 'Principal'"
+         routerLink="/teachers" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: false }" title="Teachers">
+        <div class="nav-icon-wrap"><span class="material-icons">supervised_user_circle</span></div>
+        <span class="nav-label-text" *ngIf="!isSidebarCollapsed">Teachers</span>
+      </a>
+
+      <!-- Students -->
+      <a *ngIf="userRole === 'SuperAdmin' || userRole === 'SchoolAdmin' || userRole === 'Principal' || userRole === 'Teacher'"
+         routerLink="/students" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: false }" title="Students">
+        <div class="nav-icon-wrap"><span class="material-icons">school</span></div>
+        <span class="nav-label-text" *ngIf="!isSidebarCollapsed">Students</span>
+      </a>
+
+      <!-- Meetings -->
+      <a routerLink="/meetings" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: false }" title="Meetings">
+        <div class="nav-icon-wrap"><span class="material-icons">video_call</span></div>
+        <span class="nav-label-text" *ngIf="!isSidebarCollapsed">Meetings</span>
+      </a>
+
+    </nav>
+
+    <!-- Sidebar footer brand -->
+    <div class="sidebar-bottom" *ngIf="!isSidebarCollapsed">
+      <div class="sidebar-bottom-inner">
+        <span class="material-icons" style="font-size:16px;color:#a78bfa;">verified</span>
+        <span>Secure &amp; Certified Platform</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== MAIN AREA ===================== -->
+  <div class="main">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <button class="icon-btn menu-btn" (click)="toggleSidebar()" title="Toggle menu">
+        <span class="material-icons">menu</span>
+      </button>
+
+      <div class="topbar-brand" *ngIf="isSidebarCollapsed">
+        <span class="topbar-brand-text">EduPortal</span>
+      </div>
+
+      <div class="spacer"></div>
+
+      <!-- Theme toggle -->
+      <button class="icon-btn topbar-action-btn" (click)="toggleTheme()" title="Toggle theme">
+        <span class="material-icons">{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</span>
+      </button>
+
+      <!-- Profile -->
+      <div class="profile">
+        <button class="profile-btn" (click)="toggleProfile()">
+          <div class="avatar-circle">
+            {{ userFullName.charAt(0).toUpperCase() }}
+          </div>
+          <div class="profile-info">
+            <span class="profile-name">{{ userFullName }}</span>
+            <span class="profile-role">{{ userRole }}</span>
+          </div>
+          <span class="material-icons chevron">expand_more</span>
+        </button>
+
+        <!-- Dropdown -->
+        <div class="dropdown" *ngIf="isProfileOpen">
+          <div class="dropdown-header">
+            <div class="dropdown-avatar-lg">
+              {{ userFullName.charAt(0).toUpperCase() }}
+            </div>
+            <span class="dropdown-fullname">{{ userFullName }}</span>
+            <span class="dropdown-role-badge">{{ userRole }}</span>
+          </div>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-info">
+            <div class="dropdown-info-row">
+              <span class="material-icons">person</span>
+              <span>{{ userName }}</span>
+            </div>
+            <div class="dropdown-info-row">
+              <span class="material-icons">badge</span>
+              <span>{{ userRole }}</span>
+            </div>
+            <div class="dropdown-info-row" *ngIf="userSchoolName">
+              <span class="material-icons">account_balance</span>
+              <span>{{ userSchoolName }}</span>
+            </div>
+          </div>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-item logout" (click)="logout()">
+            <span class="material-icons">logout</span>
+            <span>Sign Out</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-left">
+        <span class="material-icons footer-logo-icon">school</span>
+        <span class="footer-brand">EduPortal</span>
+      </div>
+      <div class="footer-center">
+        &copy; {{ currentYear }} EduPortal. All rights reserved.
+      </div>
+      <div class="footer-right">
+        <span class="footer-badge">
+          <span class="material-icons">verified</span> Secure
+        </span>
+        <span class="footer-badge">
+          <span class="material-icons">support_agent</span> 24/7
+        </span>
+      </div>
+    </footer>
+
+  </div>
+
+</div>

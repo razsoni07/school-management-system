@@ -1,0 +1,81 @@
+<div class="page-container">
+
+	<!-- Header -->
+	<div class="header">
+		<h2>Teachers</h2>
+		<button mat-raised-button color="primary" (click)="addTeacher()">
+			+ Add Teacher
+		</button>
+	</div>
+
+	<!-- Search -->
+	<mat-form-field appearance="outline" class="search-box">
+		<mat-label>Search</mat-label>
+		<input matInput (keyup)="applyFilter($event)" placeholder="Search teacher">
+	</mat-form-field>
+
+	<!-- Table -->
+	<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2 full-width-table">
+
+		<!-- Full Name -->
+		<ng-container matColumnDef="fullName">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header> Full Name </th>
+			<td mat-cell *matCellDef="let t"> {{t.fullName}} </td>
+		</ng-container>
+
+		<!-- Employee Code -->
+		<ng-container matColumnDef="employeeCode">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Code </th>
+			<td mat-cell *matCellDef="let t"> {{t.employeeCode}} </td>
+		</ng-container>
+
+		<!-- Email -->
+		<ng-container matColumnDef="email">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+			<td mat-cell *matCellDef="let t"> {{t.email}} </td>
+		</ng-container>
+
+		<!-- Phone -->
+		<ng-container matColumnDef="phone">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
+			<td mat-cell *matCellDef="let t"> {{t.phone}} </td>
+		</ng-container>
+
+		<!-- Department -->
+		<ng-container matColumnDef="department">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
+			<td mat-cell *matCellDef="let t"> {{t.department}} </td>
+		</ng-container>
+
+		<!-- Qualification -->
+		<ng-container matColumnDef="qualification">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header> Qualification </th>
+			<td mat-cell *matCellDef="let t"> {{t.qualification}} </td>
+		</ng-container>
+
+		<!-- School Name -->
+		<ng-container matColumnDef="schoolName">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header> School Name </th>
+			<td mat-cell *matCellDef="let t"> {{t.schoolName}} </td>
+		</ng-container>
+
+		<!-- School Code -->
+		<ng-container matColumnDef="schoolCode">
+			<th mat-header-cell *matHeaderCellDef mat-sort-header> School Code </th>
+			<td mat-cell *matCellDef="let t"> {{t.schoolCode}} </td>
+		</ng-container>
+
+		<!-- Actions -->
+		<ng-container matColumnDef="actions">
+			<th mat-header-cell *matHeaderCellDef> Actions </th>
+			<td mat-cell *matCellDef="let t">
+				<button mat-button color="primary" (click)="editTeacher(t.id)">Edit</button>
+				<button mat-button color="warn" (click)="deleteTeacher(t.id)">Delete</button>
+			</td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+	</table>
+
+</div>
