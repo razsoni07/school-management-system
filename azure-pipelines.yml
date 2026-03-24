@@ -1,0 +1,54 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+
+  #---------- Stage 1: Build .NET API ------------------
+  - stage: Build_API
+    displayName: "Build .NET API"  
+    jobs:
+    - job: BuildAPI
+      steps:
+      - task: UseDotNet@2
+        inputs: 
+        packageType: 'sdk'
+        version: '8.x'
+
+      - script: dotnet restore
+        workingDirectory: 'API/AngularDemoAPI'
+        displayName: 'Restore NuGet packages'
+
+      - script: dotnet build --configuration Release
+        workingDirectory: 'API/AngularDemoAPI'
+        displayName: 'Build API'
+
+#---------- Stage 2: Build Angular UI ------------------
+- stage: Build_UI
+  displayName: "Build Angular UI" 
+  dependsOn: Build_API
+
+   jobs:
+   - job: BuildUI
+     steps:
+     - task: NodeTool@0
+       inputs:
+       versionSpec: '20.x'
+       displayName: 'Install Node.js'
+
+    - script: npm install
+      workingDirectory: 'UI/AngularDemo.Web'
+      displayName: 'Install npm packages'
+
+    - script: npm run build
+      workingDirectory: 'UI/AngularDemo.Web'
+      displayName: 'Build Angular app'
