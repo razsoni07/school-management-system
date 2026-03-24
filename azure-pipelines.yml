@@ -55,5 +55,5 @@ jobs:
     displayName: Deploy UI to Static Web App
     inputs:
       app_location: UI/AngularDemo.Web
-      output_location: dist/angular-demo-web
+      output_location: dist/angular-demo-web/browser
       azure_static_web_apps_api_token: $(AZURE_STATIC_WEB_APPS_TOKEN)
