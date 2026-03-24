@@ -9,5 +9,6 @@ namespace AngularDemoAPI.Services.Students
         Task<StudentViewModel> ManageAsync(StudentRequestModel model, string role, int? userSchoolId);
         Task<bool> DeleteStudentAsync(int id, string role);
         Task<bool> ToggleStatusAsync(int id);
+        Task<int> GetStudentCountAsync(string role, int? schoolId);
     }
 }

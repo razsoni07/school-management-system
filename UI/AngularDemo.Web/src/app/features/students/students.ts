@@ -42,6 +42,7 @@ export class Students implements OnInit {
   students: Student[] = [];
   loggedInRole = '';
   loggedInSchoolId?: number;
+  totalStudents = 0;
 
   // Base columns visible to all roles
   private baseColumns: string[] = [
@@ -93,6 +94,7 @@ export class Students implements OnInit {
     this.loggedInSchoolId = user?.schoolId;
     this.displayedColumns = this.loggedInRole === 'SuperAdmin' ? this.superAdminColumns : this.baseColumns;
     this.loadStudents();
+    this.loadStudentCount();
   }
 
   ngAfterViewInit() {
@@ -103,6 +105,13 @@ export class Students implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  loadStudentCount() {
+    this.studentService.getStudentCount(this.loggedInRole, this.loggedInSchoolId).subscribe({
+      next: (res) => this.totalStudents = res.count,
+      error: (err) => console.error(err)
+    });
   }
 
   loadStudents() {

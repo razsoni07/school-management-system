@@ -54,4 +54,13 @@ export class StudentService {
   toggleStudentStatus(id: number): Observable<any> {
     return this.http.put(`${this.apiUrl}/ToggleStudentStatus?id=${id}`, {});
   }
+
+  // ==============================
+  // GET Student Count
+  // ==============================
+  getStudentCount(role: string, schoolId?: number): Observable<{ count: number }> {
+    let url = `${this.apiUrl}/GetStudentCount?role=${role}`;
+    if (schoolId) url += `&schoolId=${schoolId}`;
+    return this.http.get<{ count: number }>(url);
+  }
 }

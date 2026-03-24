@@ -175,6 +175,14 @@ namespace AngularDemoAPI.Services.Students
             return true;
         }
 
+        public async Task<int> GetStudentCountAsync(string role, int? schoolId)
+        {
+            var query = _context.Students.Where(s => s.IsActive);
+            if (role != UserRole.SuperAdmin.ToString())
+                query = query.Where(s => s.SchoolId == schoolId);
+            return await query.CountAsync();
+        }
+
         public async Task<bool> ToggleStatusAsync(int id)
         {
             var student = await _context.Students.FirstOrDefaultAsync(s => s.Id == id);

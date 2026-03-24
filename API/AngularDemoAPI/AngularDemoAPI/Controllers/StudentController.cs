@@ -51,6 +51,13 @@ namespace AngularDemoAPI.Controllers
             return Ok(new { message = "Student deactivated successfully." });
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetStudentCount(string role, int? schoolId)
+        {
+            var count = await _studentService.GetStudentCountAsync(role, schoolId);
+            return Ok(new { count });
+        }
+
         [HttpPost]
         public async Task<IActionResult> ToggleStudentStatus(int id)
         {
