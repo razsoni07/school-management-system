@@ -4,9 +4,12 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  - group: school-management-secrets
+
 jobs:
-- job: Build_API
-  displayName: Build .NET API
+- job: Build_Deploy_API
+  displayName: Build and Deploy .NET API
   steps:
   - task: UseDotNet@2
     displayName: Install .NET 10
@@ -14,14 +17,29 @@ jobs:
       packageType: sdk
       version: 10.x
       includePreviewVersions: true
+
   - script: dotnet restore
     displayName: Restore packages
     workingDirectory: API/AngularDemoAPI/AngularDemoAPI
+
   - script: dotnet build --configuration Release
     displayName: Build API
     workingDirectory: API/AngularDemoAPI/AngularDemoAPI
-- job: Build_UI
-  displayName: Build Angular UI
+
+  - script: dotnet publish --configuration Release --output $(Build.ArtifactStagingDirectory)/api
+    displayName: Publish API
+    workingDirectory: API/AngularDemoAPI/AngularDemoAPI
+
+  - task: AzureWebApp@1
+    displayName: Deploy API to Azure App Service
+    inputs:
+      azureSubscription: azure-service-connection
+      appType: webAppLinux
+      appName: school-mgmt-api
+      package: $(Build.ArtifactStagingDirectory)/api
+
+- job: Build_Deploy_UI
+  displayName: Build and Deploy Angular UI
   steps:
   - task: NodeTool@0
     displayName: Install Node.js
@@ -33,3 +51,9 @@ jobs:
   - script: npm run build
     displayName: Build Angular
     workingDirectory: UI/AngularDemo.Web
+  - task: AzureStaticWebApp@0
+    displayName: Deploy UI to Static Web App
+    inputs:
+      app_location: UI/AngularDemo.Web
+      output_location: dist/angular-demo-web
+      azure_static_web_apps_api_token: $(AZURE_STATIC_WEB_APPS_TOKEN)
