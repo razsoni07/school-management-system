@@ -1,36 +1,35 @@
 trigger:
   - main
 
-  pool:
-    vmImage: ubuntu-latest
+pool:
+  vmImage: ubuntu-latest
 
-  jobs:
-  - job: Build_API
-    displayName: Build .NET API
-    steps:
-    - task: UseDotNet@2
-      displayName: Install .NET 10
-      inputs:
-        packageType: sdk
-        version: 10.x
-        includePreviewVersions: true
-    - script: dotnet restore
-      displayName: Restore packages
-      workingDirectory: API/AngularDemoAPI/AngularDemoAPI
-    - script: dotnet build --configuration Release
-      displayName: Build API
-      workingDirectory: API/AngularDemoAPI/AngularDemoAPI
-
-  - job: Build_UI
-    displayName: Build Angular UI
-    steps:
-    - task: NodeTool@0
-      displayName: Install Node.js
-      inputs:
-        versionSpec: 20.x
-    - script: npm install
-      displayName: Install packages
-      workingDirectory: UI/AngularDemo.Web
-    - script: npm run build
-      displayName: Build Angular
-      workingDirectory: UI/AngularDemo.Web
+jobs:
+- job: Build_API
+  displayName: Build .NET API
+  steps:
+  - task: UseDotNet@2
+    displayName: Install .NET 10
+    inputs:
+      packageType: sdk
+      version: 10.x
+      includePreviewVersions: true
+  - script: dotnet restore
+    displayName: Restore packages
+    workingDirectory: API/AngularDemoAPI/AngularDemoAPI
+  - script: dotnet build --configuration Release
+    displayName: Build API
+    workingDirectory: API/AngularDemoAPI/AngularDemoAPI
+- job: Build_UI
+  displayName: Build Angular UI
+  steps:
+  - task: NodeTool@0
+    displayName: Install Node.js
+    inputs:
+      versionSpec: 20.x
+  - script: npm install
+    displayName: Install packages
+    workingDirectory: UI/AngularDemo.Web
+  - script: npm run build
+    displayName: Build Angular
+    workingDirectory: UI/AngularDemo.Web
