@@ -11,8 +11,15 @@ using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
 using System;
 using System.Text;
+using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+
+if(!builder.Environment.IsDevelopment())
+{
+    var keyVaultUri = new Uri($"https://school-mgmt-kv.vault.azure.net/");
+    builder.Configuration.AddAzureKeyVault(keyVaultUri, new DefaultAzureCredential());
+}
 
 // Controllers
 builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter()));

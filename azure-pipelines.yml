@@ -6,6 +6,8 @@ pool:
 
 variables:
   - group: school-management-secrets
+  - name: keyVaultName
+    value: school-mgmt-kv
 
 jobs:
 - job: Build_Deploy_API
