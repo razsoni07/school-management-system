@@ -31,6 +31,9 @@ namespace AngularDemoAPI.Services.Auth
             if (user == null)
                 return null;
 
+            if (user.PasswordHash == null)
+                return null; // Azure AD user — must sign in with Microsoft
+
             var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, request.Password);
 
             if (result == PasswordVerificationResult.Failed)
@@ -45,7 +48,7 @@ namespace AngularDemoAPI.Services.Auth
             };
         }
 
-        private string GenerateJwtToken(UserEntity user)
+        public string GenerateJwtToken(UserEntity user)
         {
             var jwt = _configuration.GetSection("Jwt");
             var key = new SymmetricSecurityKey(

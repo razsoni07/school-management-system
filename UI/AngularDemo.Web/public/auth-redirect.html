@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Authenticating...</title>
+</head>
+<body>
+  <script src="msal-redirect-bridge.min.js"></script>
+  <script>
+    // The bridge script exports broadcastResponseToMainFrame — must be called explicitly.
+    // It reads the auth code from the URL, sends it to the parent via BroadcastChannel,
+    // then closes this popup.
+    msalRedirectBridge.broadcastResponseToMainFrame().catch(function() {});
+  </script>
+</body>
+</html>

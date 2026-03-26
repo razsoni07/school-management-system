@@ -11,9 +11,8 @@ namespace AngularDemoAPI.Models.Entities
         [MaxLength(50)]
         public string Username { get; set; } = null!;
 
-        [Required]
         [MaxLength(256)]
-        public string PasswordHash { get; set; } = null!;
+        public string? PasswordHash { get; set; } = null!;
 
         [Required]
         [MaxLength(50)]
@@ -31,6 +30,9 @@ namespace AngularDemoAPI.Models.Entities
         public string? Phone { get; set; }
 
         public bool IsActive { get; set; }
+
+        [MaxLength(128)]
+        public string? AzureObjectId { get; set; } = null!;
         public School? School { get; set; }
     }
 }

@@ -33,6 +33,7 @@ namespace AngularDemoAPI.Configuration
             services.AddScoped<IClassService, ClassService>();
             services.AddScoped<ISectionService, SectionService>();
             services.AddScoped<IAcademicYearService, AcademicYearService>();
+            services.AddScoped<IAzureAuthService, AzureAuthService>();
         }
 
         public static void InitStaticClasses(this IServiceProvider serviceProvider)
